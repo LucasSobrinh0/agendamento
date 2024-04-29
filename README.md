@@ -16,3 +16,7 @@ python manage.py createsuperuser
 
 Agora rode o servidor:
 python manage.py runserver
+
+127.0.0.1:8000 (página de agendamento)
+
+127.0.0.1:8000/listar (página do administrador)
