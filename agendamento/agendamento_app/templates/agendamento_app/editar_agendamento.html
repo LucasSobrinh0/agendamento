@@ -1,0 +1,65 @@
+{% extends 'agendamento_app/base.html' %}
+{% block content %}
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .edit-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="datetime-local"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn.btn-update {
+        padding: 10px 20px;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .btn.btn-update:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Editar Agendamento</h2>
+    <form method="POST" class="edit-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="hidden" name="nome_completo" value="{{ agendamento.nome_completo }}">
+            <input type="hidden" name="telefone" value="{{ agendamento.telefone }}">
+            <input type="hidden" name="cpf" value="{{ agendamento.cpf }}">
+        </div>
+        <div class="form-group">
+            <label for="data_horario">Nova Data de agendamento:</label>
+            <input type="datetime-local" name="data_horario" id="data_horario" value="{{ agendamento.data_horario|date:'Y-m-d\TH:i' }}" min="{{ min_date }}" required>
+        </div>
+        <button type="submit" class="btn btn-update">Atualizar Agendamento</button>
+    </form>
+</div>
+{% endblock %}

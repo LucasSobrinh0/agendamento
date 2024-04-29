@@ -1,0 +1,79 @@
+{% extends 'agendamento_app/base.html' %}
+{% block content %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .agendamentos-list {
+        list-style: none;
+        padding: 0;
+    }
+    .card {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .card-body {
+        margin: 10px 0;
+    }
+    .card-title {
+        color: #007bff;
+        font-size: 20px;
+    }
+    .btn {
+        padding: 8px 12px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+    }
+    .btn-primary {
+        background-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+    }
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    .form-inline {
+        display: inline;
+    }
+</style>
+<div class="container">
+    <ul class="agendamentos-list">
+        {% for agendamento in agendamentos %}
+        <li class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ agendamento.nome_completo }}</h4>
+                <p>Telefone: {{ agendamento.telefone }}</p>
+                <p>CPF: {{ agendamento.cpf }}</p>
+                <p>Data: {{ agendamento.data_horario }}</p>
+                <div class="card-actions">
+                    <a href="{% url 'editar_agendamentos' agendamento.id %}" class="btn btn-primary">Editar</a>
+                    <form action="{% url 'remover_agendamento' agendamento.id %}" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Remover</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+        {% empty %}
+        <p>Não há nada aqui!</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

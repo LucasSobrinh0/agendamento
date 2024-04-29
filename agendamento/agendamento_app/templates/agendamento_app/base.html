@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+        nav {
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .nav-left h1 {
+            margin: 0;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-right a:hover, .nav-right a:focus {
+            background-color: white;
+            color: #007bff;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .nav-right {
+                display: flex;
+                flex-direction: column;
+            }
+            .nav-right a {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav>
+        <div class="nav-left">
+            <h1>Agendamentos BomLar</h1>
+        </div>
+        <div class="nav-right">
+            <a href="{% url 'listar_agendamentos' %}">Listar agendamentos</a>
+            <a href="{% url 'logout_view' %}">Logout</a>
+        </div>
+    </nav>
+    {% endif %}
+    {% block content %}<!--  Em django, essa área permite colocarmos código nas outras páginas -->
+    {% endblock %}
+</body>
+</html>
